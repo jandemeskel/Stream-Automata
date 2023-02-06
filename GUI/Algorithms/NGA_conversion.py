@@ -1,7 +1,7 @@
 import copy as c
-import Terminal_programme.NGA_conversion as NGA_c
+from .NGA_construct import NGA
 
-class NGA_construct():
+class convert_to_NGA():
     def __init__(self):
         pass
 
@@ -27,7 +27,7 @@ class NGA_construct():
 
         for set_ac in accepting:
             
-            automaton = NGA_c.NGA(states, initial, set_ac, alphabet, transitions).construct_NGAs()
+            automaton = NGA(states, initial, set_ac, alphabet, transitions).construct_NGAs()
             NGAs.append(automaton)
             automaton = []
             states, initial, alphabet, transitions = states_copy, initial_copy, accepting_copy, transition_copy

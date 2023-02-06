@@ -1,19 +1,17 @@
-
-from GUI_parser import parser
 from flask import Flask, render_template, request
-from Algorithms.NGA_con import NGA_construct
-import Terminal_programme.NBA_conversion as NBA_c
-import Terminal_programme.Regular_operations as regops_c
-import Validators as V
-from graphical import graph
+
+import Algorithms.NBA_conversion as NBA_c
+import Algorithms.Regular_operations as regops_c
+import Utility.Validators as V
+import Utility.utils as utility
+
+from Algorithms.NGA_conversion import convert_to_NGA
+from Utility.form_input_parser import parser
+from Utility.graphical import graph
 
 app = Flask(__name__)
 
 
-def flatten(arr):
-    arr = [i for j in arr for i in j]
-    return arr    
-    
 @app.route("/")
 def Home():
     return render_template('Home.html')
@@ -40,7 +38,7 @@ def NGA():
                 valid_input, response = V.Validator(automata).validate_form()
 
             if valid_input:
-                    NGAs = NGA_construct().muller_to_NGA(automata)
+                    NGAs = convert_to_NGA().muller_to_NGA(automata)
                     img_number = 0
                     for automata in NGAs:
                         
@@ -83,7 +81,7 @@ def NBA():
             if valid_input:
 
                 NGAs.append(automata)
-                NBAs = flatten(NBA_c.NBA(NGAs).construct_NBAs())
+                NBAs = utility.flatten(NBA_c.NBA(NGAs).construct_NBAs())
 
                 img_number = 0
                 graph(NBAs, img_number).construct_graph()
@@ -117,7 +115,7 @@ def Regops():
         try:
 
             automata1 = parser(data[0],data[1],data[2],data[3],data[4]).parse_input()
-            automata1[4] = flatten(automata1[4])
+            automata1[4] = utility.flatten(automata1[4])
             NGAs.append(automata1)
             data = []
         
@@ -136,7 +134,7 @@ def Regops():
         try:
 
             automata2 = parser(data[0],data[1],data[2],data[3],data[4]).parse_input()
-            automata2[4] = flatten(automata2[4])
+            automata2[4] = utility.flatten(automata2[4])
             NGAs.append(automata2)
             data = []
         

@@ -24,13 +24,6 @@ Example_Input = input.NMA().FD_print()
 # NGA_complement = comp(Example_NGA)
 
 
-
-
-
-
-
-
-
 # def flatten(arr):
 #     arr = [i for j in arr for i in j]
 #     return arr    
